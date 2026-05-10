@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Finder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Find your city!</h1>
+            <p>Start typing those letters</p>
+        </div>
+        
+        <div class="search-box">
+            <input 
+                type="text" 
+                id="cityInput" 
+                placeholder="" 
+                autocomplete="off"
+            >
+            <span class="search-icon"></span>
+        </div>
+
+        <ul id="suggestions" class="suggestions"></ul>
+    </div>
+
+    <script>
+        const input = document.getElementById('cityInput');
+        const suggestionsList = document.getElementById('suggestions');
+
+        let timeout = null;
+
+        input.addEventListener('input', () => {
+            clearTimeout(timeout);
+            
+            timeout = setTimeout(async () => {
+                const query = input.value.trim();
+                
+                if (query.length < 2) {
+                    suggestionsList.innerHTML = '';
+                    return;
+                }
+
+                const res = await fetch(`/autocomplete?q=${encodeURIComponent(query)}`);
+                const data = await res.json();
+
+                suggestionsList.innerHTML = '';
+
+                if (data.length === 0) {
+                    suggestionsList.innerHTML = `<li class="no-result">Город не найден</li>`;
+                    return;
+                }
+
+                data.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <span class="city-name">${item.city}</span>
+                        ${item.country ? `<span class="country">${item.country}</span>` : ''}
+                    `;
+                    li.addEventListener('click', () => {
+                        input.value = item.city;
+                        suggestionsList.innerHTML = '';
+                    });
+                    suggestionsList.appendChild(li);
+                });
+            }, 250);
+        });
+    </script>
+</body>
+</html>

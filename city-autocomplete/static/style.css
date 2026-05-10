@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+}
+
+.container {
+    background: white;
+    width: 100%;
+    max-width: 520px;
+    margin: 20px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+.header {
+    text-align: center;
+    padding: 40px 20px 20px;
+    background: #f8f9fa;
+}
+
+.header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+    color: #4a4a4a;
+}
+
+.header p {
+    color: #777;
+    font-size: 1.1rem;
+}
+
+.search-box {
+    position: relative;
+    padding: 0 25px 25px;
+}
+
+#cityInput {
+    width: 100%;
+    padding: 18px 20px 18px 55px;
+    font-size: 1.2rem;
+    border: 2px solid #5c64aa;
+    border-radius: 15px;
+    outline: none;
+    transition: all 0.3s;
+}
+
+#cityInput:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+}
+
+.search-icon {
+    position: absolute;
+    left: 42px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.4rem;
+    color: #999;
+}
+
+.suggestions {
+    list-style: none;
+    max-height: 420px;
+    overflow-y: auto;
+    margin: 0 25px 25px;
+    border-radius: 12px;
+    background: #f8f9fa;
+    border: 1px solid #eee;
+}
+
+.suggestions li {
+    padding: 16px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.suggestions li:last-child {
+    border-bottom: none;
+}
+
+.suggestions li:hover {
+    background: #e8f0ff;
+}
+
+.city-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.country {
+    color: #777;
+    font-size: 0.95rem;
+}
+
+.no-result {
+    padding: 20px;
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}
